@@ -102,8 +102,9 @@ so you may need to install it yourself.</P>
    <LI>Edit the script and set <CODE>$ENV{PATH}</CODE> and 
       <CODE>$monitors</CODE> according to your environment. You may also 
       wish to adjust the location of the perl interpreter in the first 
-      line as well as <CODE>$default_action</CODE> and 
-      <CODE>$select_timeout</CODE> to suit your tastes.</LI>
+      line as well as <CODE>$default_action</CODE>, 
+      <CODE>$max_interval</CODE>, and <CODE>$select_timeout</CODE> to 
+      suit your tastes.</LI>
 </OL>
 
 
@@ -144,6 +145,13 @@ order to see it.</P>
 arbitrary Perl code.  Be careful to control on one hand access to that
 code and on the other the content of that code.</P>
 
+<P>If you encounter an error saying something like <CODE>Can't parse
+'<I>file</I>' - '<I>function</I>' trapped by operation mask</CODE>, you
+will need to adjust the list of operators permitted by
+<CODE>Safe</CODE>.  Look for the line with
+<CODE>$sandbox-&gt;permit_only</CODE> and refer to the manpage for
+<CODE>Opcode</CODE> for possible operators.</P>
+
 <P>You must include a pathname when specifying a separate configuration
 file; otherwise, it will be silently ignored.</P>
 
@@ -170,6 +178,20 @@ it under the same terms as Perl itself.</P>
       <TH ALIGN="left">Version </TH>
       <TH ALIGN="left">Verification </TH>
       <TH ALIGN="left">Notes<BR></TH>
+   </TR>
+   <TR>
+      <TH ALIGN="left" VALIGN="top">17-May-2004 </TH>
+      <TD ALIGN="left" VALIGN="top"><A HREF="/code/log-guardian/log-guardian-1.01">1.01</A> </TD>
+      <TD ALIGN="left" VALIGN="top"><A HREF="/code/log-guardian/log-guardian-1.01.md5">MD5</A> / 
+         <A HREF="/code/log-guardian/log-guardian-1.01.asc">GPG</A> </TD>
+      <TD ALIGN="left" VALIGN="top">
+      <UL>
+         <LI>Added a configuration variable (<CODE>$max_interval</CODE>) to 
+            control the maximum number of seconds to sleep between checks 
+            of logs.</LI>
+         <LI>Changed <CODE>$select_timeout</CODE> to have global scope 
+            and lowered its default value.</LI>
+      </UL></TD>
    </TR>
    <TR>
       <TH ALIGN="left" VALIGN="top">04-May-2004 </TH>

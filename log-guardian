@@ -77,7 +77,13 @@ Currently, I am not aware of any bugs in this script.
 
 Understand that actions undertaken by B<log-guardian> are arbitrary Perl
 code.  Be careful to control on one hand access to that code and on the
-other the content of that code.
+other the content of that code. 
+
+If you encounter an error saying something like C<Can't parse 'file' -
+'function' trapped by operation mask>, you will need to adjust the list
+of operators permitted by C<Safe>.  Look for the line with
+C<$sandbox-E<gt>permit_only> and refer to the manpage for C<Opcode> for
+possible operators. 
 
 You must include a pathname when specifying a separate configuration
 file; otherwise, it will be silently ignored.
@@ -117,6 +123,12 @@ it under the same terms as Perl itself.
 
 =head1 HISTORY
 
+17-May-2004, v1.01, George A. Theall
+    o Added a configuration variable ($max_interval) to control the
+      maximum number of seconds to sleep between checks of logs.
+    o Changed $select_timeout to have global scope and lowered its
+      default value.
+
 04-May-2004, v1.00, George A. Theall
     o Initial version.
 
@@ -147,6 +159,7 @@ our $default_action = sub {             # used if a monitor lacks action.
     print "*** Match found ***\n",
           "    $line\n";
 };
+our $max_interval = 5;                  # max interval between checks.
 our $monitors = {                       # what to monitor.
 #    '/var/log/mail.log' => [
 #        {
@@ -195,7 +208,7 @@ our $monitors = {                       # what to monitor.
 #        },
 #    ],
 };
-my $select_timeout = 60;                # timeout for select.
+our $select_timeout = 5;                # timeout for select.
 
 
 ############################################################################
@@ -244,7 +257,7 @@ if ($cf) {
     my $sandbox = new Safe;
     # nb: you may need to adjust this depending on the actions you 
     #     select; "man Opcode" for details.
-    $sandbox->permit_only(':default', ':subprocess');
+    $sandbox->permit_only(':default', ':subprocess', ':ownprocess');
     $sandbox->rdo($cf);
     croak "Can't parse '$cf' - $@!\n" if ($@);
 
@@ -304,7 +317,7 @@ my @logs;
 warn "debug: logs to monitor:\n" if $DEBUG;
 foreach (keys %$monitors) {
     warn "debug:   $_\n" if $DEBUG;
-    push(@logs, File::Tail->new($_));
+    push(@logs, File::Tail->new(name=>$_, maxinterval=>$max_interval));
 }
 
 warn "debug: starting to monitor.\n" if $DEBUG;
