@@ -1,4 +1,17 @@
 #!/usr/bin/perl -wT
+#
+# ----------------------------------------------------------------------
+# log-guardian
+#
+# Written by George A. Theall, theall@tifaware.com
+#
+# Copyright (c) 2004-2005, George A. Theall. All rights reserved.
+#
+# This module is free software; you can redistribute it and/or modify
+# it under the same terms as Perl itself.
+#
+# $Id$
+# ----------------------------------------------------------------------
 
 
 =head1 NAME
@@ -104,33 +117,8 @@ to abort.
 
 =head1 SEE ALSO
 
-L<http://www.tifaware.com/perl/log-guardian>.
+L<http://www.tifaware.com/perl/log-guardian/>.
 
-
-=head1 AUTHOR
-
-George A. Theall, E<lt>theall@tifaware.comE<gt>
-
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (c) 2004, George A. Theall.
-All rights reserved.
-
-This script is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
-
-
-=head1 HISTORY
-
-17-May-2004, v1.01, George A. Theall
-    o Added a configuration variable ($max_interval) to control the
-      maximum number of seconds to sleep between checks of logs.
-    o Changed $select_timeout to have global scope and lowered its
-      default value.
-
-04-May-2004, v1.00, George A. Theall
-    o Initial version.
 
 =cut
 
