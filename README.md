@@ -1,6 +1,6 @@
 ## Introduction
 
-This script lets you monitor one or more log files in an endless loop, _a la_ `tail -f`.  As lines are added to the files, they are compared to one or more patterns specified as Perl regular expressions.  And as matches are found, the script reacts by running a block of Perl code.  Thus, for example, you could use **log-guardian** to monitor web logs for problematic behaviour and add troublesome hosts to a blocklist dynamically.  You could even use it as a [port knocking service](https://slashdot.org/story/04/02/05/1834228/port-knocking-for-added-security)!
+This script lets you monitor one or more log files in an endless loop, _a la_ `tail -f`.  As lines are added to the files, they are compared to one or more patterns specified as Perl regular expressions.  And as matches are found, the script reacts by running a block of Perl code.  Thus, for example, you could use **log-guardian** to monitor web logs for problematic behaviour and add troublesome hosts to a blocklist and/or report the abuse dynamically.  You could even use it as a [port knocking service](https://slashdot.org/story/04/02/05/1834228/port-knocking-for-added-security)!
 
 **log-guardian** is not a general-purpose log analyzer, though, since it looks at lines only as they are added to logs, not at whole log files themselves.  It's intended simply to allow you to react to issues as they arise.
 
@@ -45,8 +45,7 @@ Currently, I am not aware of any bugs in this script.
 
 Understand that actions undertaken by **log-guardian** are arbitrary Perl code.  Be careful to control on one hand access to that code and on the other the content of that code.  And read [Daniel Cid's discussion of Attacking Log analysis tools](http://dcid.me/texts/attacking-log-analysis-tools.html) to understand some of the pitfalls that can arise.
 
-If you encounter an error saying something like `Can't parse '_file_' - '_function_' trapped by operation mask`, you
-will need to adjust the list of operators permitted by `Safe`.  Look for the line with `$sandbox->permit_only` and refer to the manpage for `Opcode` for possible operators.
+If you encounter an error saying something like `Can't parse '_file_' - '_function_' trapped by operation mask`, you will need to adjust the list of operators permitted by `Safe`.  Look for the line with `$sandbox->permit_only` and refer to the manpage for the `Opcode` Perl module for possible operators.
 
 You must include a pathname when specifying a separate configuration file; otherwise, it will be silently ignored.
 
@@ -55,7 +54,7 @@ When making changes to `$monitors`, you would be wise to redirect the script's o
 
 ## Copyright and License
 
-Copyright (c) 2004-2016, George A. Theall.
+Copyright (c) 2004-2020, George A. Theall.
 All rights reserved.
 
 This script is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
