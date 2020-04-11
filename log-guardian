@@ -5,7 +5,7 @@
 #
 # Written by George A. Theall, theall@tifaware.com
 #
-# Copyright (c) 2004-2016, George A. Theall. All rights reserved.
+# Copyright (c) 2004-2020, George A. Theall. All rights reserved.
 #
 # This module is free software; you can redistribute it and/or modify
 # it under the same terms as Perl itself.
@@ -305,7 +305,7 @@ my @logs;
 warn "debug: logs to monitor:\n" if $DEBUG;
 foreach (keys %$monitors) {
     warn "debug:   $_\n" if $DEBUG;
-    push(@logs, File::Tail->new(name=>$_, maxinterval=>$max_interval));
+    push(@logs, File::Tail->new(name=>$_, maxinterval=>$max_interval, interval=>0, reset_tail=>0));
 }
 
 warn "debug: starting to monitor.\n" if $DEBUG;
