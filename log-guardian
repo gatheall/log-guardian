@@ -242,10 +242,10 @@ if ($cf) {
     #     variables. Further, values are brought back into the main
     #     namespace only for the configurable variables above.
     warn "debug: processing '$cf'.\n" if $DEBUG;
-    my $sandbox = new Safe;
+    my $sandbox = new Safe 'Sandbox';
     # nb: you may need to adjust this depending on the actions you 
     #     select; "man Opcode" for details.
-    $sandbox->permit_only(':default', ':subprocess', ':ownprocess');
+    $sandbox->permit_only(':browse', ':subprocess', ':ownprocess', 'open', 'close', 'sort', 'print');
     $sandbox->rdo($cf);
     croak "Can't parse '$cf' - $@!\n" if ($@);
 
